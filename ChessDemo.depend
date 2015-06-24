@@ -1,0 +1,35 @@
+# depslib dependency file v1.0
+1435164860 source:d:\dokumente\cpp\chessdemo\main.cpp
+	<tchar.h>
+	<windows.h>
+	<cstdio>
+	"wApp.h"
+	"wWnd.h"
+	"square.h"
+
+1433120243 d:\dokumente\cpp\chessdemo\include\wapp.h
+	<windows.h>
+	<cstdio>
+
+1435147056 source:d:\dokumente\cpp\chessdemo\src\wapp.cpp
+	"wApp.h"
+
+1435167580 source:d:\dokumente\cpp\chessdemo\src\wwnd.cpp
+	"wWnd.h"
+
+1435064783 d:\dokumente\cpp\chessdemo\include\wwnd.h
+	<windows.h>
+	<cstdio>
+	<typeinfo>
+
+1435061017 source:d:\dokumente\cpp\chessdemo\resource.rc
+	"resource.h"
+
+1435059530 d:\dokumente\cpp\chessdemo\resource.h
+
+1435164924 source:d:\dokumente\cpp\chessdemo\src\square.cpp
+	"square.h"
+
+1435164656 d:\dokumente\cpp\chessdemo\include\square.h
+	<windows.h>
+
