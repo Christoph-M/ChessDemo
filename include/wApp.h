@@ -9,7 +9,7 @@ class wApp
     public:
         wApp(HINSTANCE, char *, WNDPROC, LPCSTR menuName = NULL);
 
-        bool regWnd();
+        bool regWnd() const;
 
         virtual ~wApp();
     protected:

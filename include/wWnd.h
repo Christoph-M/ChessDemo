@@ -23,9 +23,9 @@ class wWnd
                     HMENU hMenu     = NULL,
                     LPVOID lpParam  = NULL);
 
-        bool show(int nCmdShow = SW_SHOWNORMAL);
+        bool show(int nCmdShow = SW_SHOWNORMAL) const;
 
-        operator HWND();
+        operator HWND() const;
 
         virtual ~wWnd();
     protected:

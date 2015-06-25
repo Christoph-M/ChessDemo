@@ -25,11 +25,11 @@ HWND wWnd::create(HINSTANCE hThisInstance,
     return _hwnd;
 }
 
-bool wWnd::show(int nCmdShow){
+bool wWnd::show(int nCmdShow) const{
     return ShowWindow(_hwnd, nCmdShow);
 }
 
-wWnd::operator HWND(){
+wWnd::operator HWND() const{
     return _hwnd;
 }
 

@@ -1,23 +1,26 @@
 # depslib dependency file v1.0
-1435164860 source:d:\dokumente\cpp\chessdemo\main.cpp
+1435233628 source:d:\dokumente\cpp\chessdemo\main.cpp
 	<tchar.h>
 	<windows.h>
 	<cstdio>
 	"wApp.h"
 	"wWnd.h"
 	"square.h"
+	"highlight.h"
+	"pawn.h"
+	"knight.h"
 
-1433120243 d:\dokumente\cpp\chessdemo\include\wapp.h
+1435226726 d:\dokumente\cpp\chessdemo\include\wapp.h
 	<windows.h>
 	<cstdio>
 
-1435147056 source:d:\dokumente\cpp\chessdemo\src\wapp.cpp
+1435226726 source:d:\dokumente\cpp\chessdemo\src\wapp.cpp
 	"wApp.h"
 
-1435167580 source:d:\dokumente\cpp\chessdemo\src\wwnd.cpp
+1435226709 source:d:\dokumente\cpp\chessdemo\src\wwnd.cpp
 	"wWnd.h"
 
-1435064783 d:\dokumente\cpp\chessdemo\include\wwnd.h
+1435226709 d:\dokumente\cpp\chessdemo\include\wwnd.h
 	<windows.h>
 	<cstdio>
 	<typeinfo>
@@ -27,9 +30,27 @@
 
 1435059530 d:\dokumente\cpp\chessdemo\resource.h
 
-1435164924 source:d:\dokumente\cpp\chessdemo\src\square.cpp
+1435233781 source:d:\dokumente\cpp\chessdemo\src\square.cpp
 	"square.h"
 
-1435164656 d:\dokumente\cpp\chessdemo\include\square.h
+1435233628 d:\dokumente\cpp\chessdemo\include\square.h
 	<windows.h>
+
+1435230901 source:d:\dokumente\cpp\chessdemo\src\pawn.cpp
+	"pawn.h"
+
+1435233771 d:\dokumente\cpp\chessdemo\include\pawn.h
+	<highlight.h>
+
+1435230901 source:d:\dokumente\cpp\chessdemo\src\knight.cpp
+	"knight.h"
+
+1435233771 d:\dokumente\cpp\chessdemo\include\knight.h
+	<highlight.h>
+
+1435233628 d:\dokumente\cpp\chessdemo\include\highlight.h
+	<square.h>
+
+1435233693 source:d:\dokumente\cpp\chessdemo\src\highlight.cpp
+	"highlight.h"
 

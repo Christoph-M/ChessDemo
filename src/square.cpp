@@ -1,13 +1,11 @@
 #include "square.h"
 
-square::square():
-    _posX(0),
-    _posY(0)
+square::square()
 {
     //ctor
 }
 
-void square::drawBitmap(HDC memHdc, HDC bmpHdc, HBITMAP hBitmap) const{
+void square::drawBitmap(HDC & memHdc, HDC & bmpHdc, HBITMAP & hBitmap) const{
     BITMAP bm;
     SelectObject(bmpHdc, hBitmap);
     GetObject(hBitmap, sizeof(bm), &bm);

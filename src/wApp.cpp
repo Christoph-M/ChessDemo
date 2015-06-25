@@ -20,7 +20,7 @@ wApp::wApp(HINSTANCE hThisInstance, char * szClassName, WNDPROC WindowProcedure,
     _wndClsEx.hbrBackground = (HBRUSH)COLOR_BACKGROUND;
 }
 
-bool wApp::regWnd(){
+bool wApp::regWnd() const{
     return RegisterClassEx(&_wndClsEx);
 }
 
