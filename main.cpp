@@ -8,6 +8,7 @@
 #include <windows.h>
 #include <cstdio>
 
+#include "header.h"
 #include "wApp.h"
 #include "wWnd.h"
 #include "square.h"
@@ -28,22 +29,16 @@ RECT    clientRect;         // To be used to determine cient area
 HBITMAP bmpWhiteSquare, bmpBlackSquare, bmpHighlight, bmpHighlightM, bmpSelection, bmpPawnW, bmpPawnB, bmpPawnM, // Bitmaps to be loaded
         bmpKnightW,     bmpKnightB,     bmpKnightM;
 
-const int boardWidth    = 8;        // Width of the chessboard
-const int boardHeight   = 8;        // Height of the chessboard
-const int boardEdge     = 20;       // Edge size around the chessboard
 int       winWidth, winHeight;      // Size of client area
-bool      squareSelect  = false;    // Tracking if a square is selected
 
-square    square[boardHeight][boardWidth];   // Creating objects for the chessboard squares
-highlight highlight, selection;              // Creating objects for the highlight and selection squares
+square    square[BOARD_HEIGHT][BOARD_WIDTH];   // Object declaration for the chessboard squares
+highlight highlight, selection;                // Object declarations for the highlight and selection squares
 
 // Chessman objects
-pawn   pawnW[4];                                                // Creating objects for the white pawns
-pawn   pawnB[4]   = {pawn(false),   pawn(false),   pawn(false),   pawn(false)};     // Creating objects for th black pawns
-knight knightW[4];                                              // Creating objects for the white knights
-knight knightB[4] = {knight(false), knight(false), knight(false), knight(false)};   // Creating objects for the black knights
-
-int calcPos(int i){ return (i * 64) + boardEdge; }              // Calcuation of position based on the grid position
+pawn   pawnW[4]   = {pawn(WHITE),   pawn(WHITE),   pawn(WHITE),   pawn(WHITE)};     // Object declarations for the white pawns
+pawn   pawnB[4]   = {pawn(BLACK),   pawn(BLACK),   pawn(BLACK),   pawn(BLACK)};     // Object declarations for the black pawns
+knight knightW[4] = {knight(WHITE), knight(WHITE), knight(WHITE), knight(WHITE)};   // Object declarations for the white knights
+knight knightB[4] = {knight(BLACK), knight(BLACK), knight(BLACK), knight(BLACK)};   // Object declarations for the black knights
 
 
 
@@ -64,7 +59,7 @@ int WINAPI WinMain(HINSTANCE hThisInstance,
 
     wWnd window;
 
-    window.create(hThisInstance, szClassName, _T("Chess Demo"), (boardWidth * 64) + (boardEdge + 30), (boardHeight * 64) + (boardEdge + 50));
+    window.create(hThisInstance, szClassName, _T("Chess Demo"), (BOARD_WIDTH * 64) + (BOARD_EDGE + 30), (BOARD_HEIGHT * 64) + (BOARD_EDGE + 50));
 
     /* Make the window visible on the screen */
     if (window.show(nCmdShow)){
@@ -72,17 +67,17 @@ int WINAPI WinMain(HINSTANCE hThisInstance,
         return 0;
     }
 
-    // Set coordinates, color and visibility for chessboard squares
+    // Set position, color and visibility for chessboard squares
     bool isWhite = true;
 
-    for (int y = 0; y < boardHeight; ++y){
-        for (int x = 0; x < boardWidth; ++x){
-            square[y][x].setPosX(calcPos(x));
-            square[y][x].setPosY(calcPos(y));
+    for (int y = 0; y < BOARD_HEIGHT; ++y){
+        for (int x = 0; x < BOARD_WIDTH; ++x){
+            square[y][x].setPosX(x);
+            square[y][x].setPosY(y);
             square[y][x].setColor(isWhite);
             square[y][x].setVisible(true);
 
-            if (x < boardWidth - 1 || boardWidth % 2) isWhite = !isWhite;
+            if (x < BOARD_WIDTH - 1 || BOARD_WIDTH % 2) isWhite = !isWhite;
         }
     }
 
@@ -98,22 +93,19 @@ int WINAPI WinMain(HINSTANCE hThisInstance,
 
         //____________________________Calculate Position of Highlight and Selection_____________________________
 
-        if ((p.x >= boardEdge && p.x <= calcPos(boardWidth)) && (p.y >= boardEdge && p.y <= calcPos(boardHeight))){ // Check if cursor is within the chessboard
-            for (int y = 0; y < boardHeight; ++y){  // If cursor is within the chessboard, iterate through chessboard squares
-               for (int x = 0; x < boardWidth; ++x){
-                    // Check if the cursor is within the current chessboard square
-                    if ((p.x > square[y][x].getPosX() && p.x < (square[y][x].getPosX() + 64)) && (p.y > square[y][x].getPosY() && p.y < (square[y][x].getPosY() + 64))){
-                        if (!selection.getPosX() && !selection.getPosY()){  // If the cursor is within the chessboard square, check if selection has valid coordinates
-                            selection.setPosX(square[y][x].getPosX() - 4);  // If selection has invalid coordinates, set coordinates of current chessboard square to selection
-                            selection.setPosY(square[y][x].getPosY() - 4);
+        if (square[0][0].cursorWithinBoard(p)){ // Check if cursor is within the chessboard
+            for (int y = 0; y < BOARD_HEIGHT; ++y){  // If cursor is within the chessboard, iterate through chessboard squares
+               for (int x = 0; x < BOARD_WIDTH; ++x){
+                    if (square[y][x].cursorWithinSquare(p)){    // Check if the cursor is within the current chessboard square
+                        if (selection.getPosX() < 0 && selection.getPosY() < 0){  // If the cursor is within the chessboard square, check if selection has a valid position
+                            selection.setPosX(square[y][x].getPosX());            // If selection has an invalid position, set position of current chessboard square to selection
+                            selection.setPosY(square[y][x].getPosY());
                         }
 
-                        // If the cursor is within the chessboard square, set coordinates of current chessboard square to highlight and set visibility of highlight to true
-                        highlight.setPosX(square[y][x].getPosX() - 4);
-                        highlight.setPosY(square[y][x].getPosY() - 4);
+                        // If the cursor is within the chessboard square, set position of current chessboard square to highlight and set visibility of highlight to true
+                        highlight.setPosX(square[y][x].getPosX());
+                        highlight.setPosY(square[y][x].getPosY());
                         highlight.setVisible(true);
-                        pawnB[0].setPosX(square[y][x].getPosX());
-                        pawnB[0].setPosY(square[y][x].getPosY());
                     }
                 }
             }
@@ -150,8 +142,8 @@ int WINAPI WinMain(HINSTANCE hThisInstance,
 
             //__________________________________________Draw Chess Board________________________________________
 
-            for (int y = 0; y < boardHeight; ++y){  // Iterate through chessboard squares
-                for (int x = 0; x < boardWidth; ++x){
+            for (int y = 0; y < BOARD_HEIGHT; ++y){  // Iterate through chessboard squares
+                for (int x = 0; x < BOARD_WIDTH; ++x){
                     if (square[y][x].getColor()){   // Check square color (true = white | false = black)
                         square[y][x].drawBitmap(memHdc, bmpHdc, bmpWhiteSquare);    // If square color is white, draw white square to memory buffer
                     } else {
@@ -169,8 +161,8 @@ int WINAPI WinMain(HINSTANCE hThisInstance,
 
             //__________________________________________Draw Selection__________________________________________
 
-            if(selection.getVisible() && selection.getPosX() && selection.getPosY()){   // Check if selection is visible and has valid coordinates
-                selection.drawBitmap(memHdc, bmpHdc, bmpSelection, bmpHighlightM);      // If selection is visible and has valid coordinates, draw to memory buffer
+            if(selection.getVisible() && selection.getPosX() >= 0 && selection.getPosY() >= 0){   // Check if selection is visible and has valid coordinates
+                selection.drawBitmap(memHdc, bmpHdc, bmpSelection, bmpHighlightM);      // If selection is visible and has a valid position, draw to memory buffer
             }
 
             //______________________________Copy the image in memHdc to screen__________________________________
@@ -197,12 +189,17 @@ int WINAPI WinMain(HINSTANCE hThisInstance,
             DeleteObject(bmpKnightM);
         ReleaseDC(gHwnd, hdc);
 
-        /// Regulate framerate, if possible
+        Sleep(20);
     }
 
     /* The program return-value is 0 - The value that PostQuitMessage() gave */
     return messages.wParam;
 }
+
+
+
+
+
 
 /*  This function is called by the Windows function DispatchMessage()  */
 
@@ -219,11 +216,15 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
             break;
         case WM_LBUTTONUP:
             // On left mouse button up, check if cursor is within the chessboard
-            if ((p.x >= boardEdge && p.x <= calcPos(boardWidth)) && (p.y >= boardEdge && p.y <= calcPos(boardHeight))){
-                // If cursor is within the chessboard, set selection visibility to true and invalidate coordinates, so new coordinates can be assigned
-                selection.setVisible(true);
-                selection.setPosX(0);
-                selection.setPosY(0);
+            if (square[0][0].cursorWithinBoard(p)){
+                if (selection.getVisible()){
+                    selection.setVisible(false);
+                } else {
+                    // If cursor is within the chessboard, set selection visibility to true and invalidate position, so a new position can be assigned
+                    selection.setVisible(true);
+                    selection.setPosX(-1);
+                    selection.setPosY(-1);
+                }
             } else {    // If cursor is not within the chessboard, set selection visibility to false
                 selection.setVisible(false);
             }

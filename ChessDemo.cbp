@@ -39,10 +39,17 @@
 			<Add library="kernel32" />
 			<Add library="comctl32" />
 		</Linker>
+		<Unit filename="include/header.h" />
+		<Unit filename="include/highlight.h" />
+		<Unit filename="include/knight.h" />
+		<Unit filename="include/pawn.h" />
 		<Unit filename="include/square.h" />
 		<Unit filename="include/wApp.h" />
 		<Unit filename="include/wWnd.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="src/highlight.cpp" />
+		<Unit filename="src/knight.cpp" />
+		<Unit filename="src/pawn.cpp" />
 		<Unit filename="src/square.cpp" />
 		<Unit filename="src/wApp.cpp" />
 		<Unit filename="src/wWnd.cpp" />

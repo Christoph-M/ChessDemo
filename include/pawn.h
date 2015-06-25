@@ -1,13 +1,13 @@
 #ifndef PAWN_H
 #define PAWN_H
 
-#include <highlight.h>
+#include <square.h>
 
 
-class pawn : public highlight
+class pawn : public square
 {
     public:
-        pawn(bool isWhite = true);
+        pawn(bool);
         virtual ~pawn();
     protected:
     private:

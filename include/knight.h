@@ -1,13 +1,13 @@
 #ifndef KNIGHT_H
 #define KNIGHT_H
 
-#include <highlight.h>
+#include <square.h>
 
 
-class knight : public highlight
+class knight : public square
 {
     public:
-        knight(bool isWhite = true);
+        knight(bool);
         virtual ~knight();
     protected:
     private:
