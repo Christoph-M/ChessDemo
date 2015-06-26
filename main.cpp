@@ -32,27 +32,32 @@ HBITMAP bmpWhiteSquare, bmpBlackSquare, bmpHighlight, bmpHighlightM, bmpSelectio
 int       winWidth, winHeight;      // Size of client area
 
 square    square[BOARD_HEIGHT][BOARD_WIDTH], board;   // Object declaration for the chessboard squares
-highlight highlight, selection;                // Object declarations for the highlight and selection squares
+highlight highlight, selection;                       // Object declarations for the highlight and selection squares
 
 // Chessman objects
-pawn   pawnW[8]   = {pawn(WHITE, 111),   pawn(WHITE, 112),   pawn(WHITE, 113),   pawn(WHITE, 114),     // Object declarations for the white pawns
-                     pawn(WHITE, 115),   pawn(WHITE, 116),   pawn(WHITE, 117),   pawn(WHITE, 118)};
-pawn   pawnB[8]   = {pawn(BLACK, 211),   pawn(BLACK, 212),   pawn(BLACK, 213),   pawn(BLACK, 214),     // Object declarations for the black pawns
-                     pawn(BLACK, 215),   pawn(BLACK, 216),   pawn(BLACK, 217),   pawn(BLACK, 218)};
-knight knightW[8] = {knight(WHITE, 121), knight(WHITE, 122), knight(WHITE, 123), knight(WHITE, 124),   // Object declarations for the white knights
-                     knight(WHITE, 125), knight(WHITE, 126), knight(WHITE, 127), knight(WHITE, 128)};
-knight knightB[8] = {knight(BLACK, 221), knight(BLACK, 222), knight(BLACK, 223), knight(BLACK, 224),   // Object declarations for the black knights
-                     knight(BLACK, 225), knight(BLACK, 226), knight(BLACK, 227), knight(BLACK, 228)};
+pawn   pawns[16]   = {pawn(WHITE, 111),   pawn(WHITE, 112),   pawn(WHITE, 113),   pawn(WHITE, 114),     // Object declarations for the white pawns
+                      pawn(WHITE, 115),   pawn(WHITE, 116),   pawn(WHITE, 117),   pawn(WHITE, 118),
+                      pawn(BLACK, 211),   pawn(BLACK, 212),   pawn(BLACK, 213),   pawn(BLACK, 214),     // Object declarations for the black pawns
+                      pawn(BLACK, 215),   pawn(BLACK, 216),   pawn(BLACK, 217),   pawn(BLACK, 218)};
+knight knights[16] = {knight(WHITE, 121), knight(WHITE, 122), knight(WHITE, 123), knight(WHITE, 124),   // Object declarations for the white knights
+                      knight(WHITE, 125), knight(WHITE, 126), knight(WHITE, 127), knight(WHITE, 128),
+                      knight(BLACK, 221), knight(BLACK, 222), knight(BLACK, 223), knight(BLACK, 224),   // Object declarations for the black knights
+                      knight(BLACK, 225), knight(BLACK, 226), knight(BLACK, 227), knight(BLACK, 228)};
 
-int checkMatch(int id){
-    for (int i = 0; i < 8; ++i){
-        if (pawnW[i].getID() == id) { square[selection.getPosY()][selection.getPosX()].setContID(0); square[selection.getPosY()][selection.getPosX()].setHasID(false); return i; }
-        if (pawnB[i].getID() == id) return i;
-        if (knightW[i].getID() == id) return i;
-        if (knightB[i].getID() == id) return i;
+void moveChessMan(int i, int id){
+    if (id < 120 || (id < 220 && id > 210)){
+        pawns[i].moveTo(highlight.getPosX(), highlight.getPosY());
+
+        square[selection.getPosY()][selection.getPosX()].setContID(0);
+
+        square[highlight.getPosY()][highlight.getPosX()].setContID(pawns[i].getID());
+    } else if ((id > 120 && id < 130) || id > 220){
+        knights[i].moveTo(highlight.getPosX(), highlight.getPosY());
+
+        square[selection.getPosY()][selection.getPosX()].setContID(0);
+
+        square[highlight.getPosY()][highlight.getPosX()].setContID(knights[i].getID());
     }
-
-    return -1;
 }
 
 
@@ -96,20 +101,24 @@ int WINAPI WinMain(HINSTANCE hThisInstance,
     }
 
     // Set position for chessmen
-    for (int i = 0; i < 8; ++i){
-        pawnW[i].setPosX(((BOARD_WIDTH - 8) / 2) + i);
-        pawnW[i].setPosY(BOARD_HEIGHT - 2);
-        square[pawnW[i].getPosY()][pawnW[i].getPosX()].setContID(pawnW[i].getID());
-        pawnB[i].setPosX(((BOARD_WIDTH - 8) / 2) + i);
-        pawnB[i].setPosY(1);
-        square[pawnB[i].getPosY()][pawnB[i].getPosX()].setContID(pawnB[i].getID());
+    for (int i = 0; i < 16; ++i){
+        if (pawns[i].getColor() == WHITE){
+            pawns[i].setPosX(((BOARD_WIDTH - 8) / 2) + i);
+            pawns[i].setPosY(BOARD_HEIGHT - 2);
+            square[pawns[i].getPosY()][pawns[i].getPosX()].setContID(pawns[i].getID());
 
-        knightW[i].setPosX(((BOARD_WIDTH - 8) / 2) + i);
-        knightW[i].setPosY(BOARD_HEIGHT - 1);
-        square[knightW[i].getPosY()][knightW[i].getPosX()].setContID(knightW[i].getID());
-        knightB[i].setPosX(((BOARD_WIDTH - 8) / 2) + i);
-        knightB[i].setPosY(0);
-        square[knightB[i].getPosY()][knightB[i].getPosX()].setContID(knightB[i].getID());
+            knights[i].setPosX(((BOARD_WIDTH - 8) / 2) + i);
+            knights[i].setPosY(BOARD_HEIGHT - 1);
+            square[knights[i].getPosY()][knights[i].getPosX()].setContID(knights[i].getID());
+        } else {
+            pawns[i].setPosX(((BOARD_WIDTH - 8) / 2) + (i - 8));
+            pawns[i].setPosY(1);
+            square[pawns[i].getPosY()][pawns[i].getPosX()].setContID(pawns[i].getID());
+
+            knights[i].setPosX(((BOARD_WIDTH - 8) / 2) + (i - 8));
+            knights[i].setPosY(0);
+            square[knights[i].getPosY()][knights[i].getPosX()].setContID(knights[i].getID());
+        }
     }
 
     // Main program loop. Runs until gameRunning is set to false
@@ -122,9 +131,9 @@ int WINAPI WinMain(HINSTANCE hThisInstance,
             DispatchMessage(&messages);
         }
 
-        //____________________________Calculate Position of Highlight and Selection_____________________________
+        //____________________________Determine Position of Highlight and Selection_____________________________
 
-        if (square[0][0].cursorWithinBoard(p)){ // Check if cursor is within the chessboard
+        if (board.cursorWithinBoard(p)){    // Check if cursor is within the chessboard
             for (int y = 0; y < BOARD_HEIGHT; ++y){  // If cursor is within the chessboard, iterate through chessboard squares
                for (int x = 0; x < BOARD_WIDTH; ++x){
                     if (square[y][x].cursorWithinSquare(p)){    // Check if the cursor is within the current chessboard square
@@ -185,12 +194,16 @@ int WINAPI WinMain(HINSTANCE hThisInstance,
 
             //__________________________________________Draw Chessmen___________________________________________
 
-            for (int i = 0; i < 8; ++i){
-                pawnW[i].drawBitmap(memHdc, bmpHdc, bmpPawnW, bmpPawnM);
-                pawnB[i].drawBitmap(memHdc, bmpHdc, bmpPawnB, bmpPawnM);
+            for (int i = 0; i < 16; ++i){
+                if (pawns[i].getColor() == WHITE){
+                    pawns[i].drawBitmap(memHdc, bmpHdc, bmpPawnW, bmpPawnM);
 
-                knightW[i].drawBitmap(memHdc, bmpHdc, bmpKnightW, bmpKnightM);
-                knightB[i].drawBitmap(memHdc, bmpHdc, bmpKnightB, bmpKnightM);
+                    knights[i].drawBitmap(memHdc, bmpHdc, bmpKnightW, bmpKnightM);
+                } else {
+                    pawns[i].drawBitmap(memHdc, bmpHdc, bmpPawnB, bmpPawnM);
+
+                    knights[i].drawBitmap(memHdc, bmpHdc, bmpKnightB, bmpKnightM);
+                }
             }
 
             //__________________________________________Draw Highlight__________________________________________
@@ -201,7 +214,7 @@ int WINAPI WinMain(HINSTANCE hThisInstance,
 
             //__________________________________________Draw Selection__________________________________________
 
-            if(selection.getVisible() && selection.getPosX() >= 0 && selection.getPosY() >= 0){   // Check if selection is visible and has valid coordinates
+            if(selection.getVisible() && selection.validPos()){                         // Check if selection is visible and has a valid position
                 selection.drawBitmap(memHdc, bmpHdc, bmpSelection, bmpHighlightM);      // If selection is visible and has a valid position, draw to memory buffer
             }
 
@@ -257,50 +270,59 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
         case WM_LBUTTONUP:
             // On left mouse button up, check if cursor is within the chessboard
             if (board.cursorWithinBoard(p)){
-                if (selection.getVisible()){
-                    switch (square[selection.getPosY()][selection.getPosX()].getContID()){
-                        case 111:
-                            pawnW[checkMatch(111)].setPosX(highlight.getPosX());
-                            pawnW[checkMatch(111)].setPosY(highlight.getPosY());
-                            square[highlight.getPosY()][highlight.getPosX()].setContID(pawnW[checkMatch(111)].getID());
-                            break;
-                        case 112:
-                            pawnW[checkMatch(112)].setPosX(highlight.getPosX());
-                            pawnW[checkMatch(112)].setPosY(highlight.getPosY());
-                            square[highlight.getPosY()][highlight.getPosX()].setContID(pawnW[checkMatch(112)].getID());
-                            break;
-                        case 113:
-                            pawnW[checkMatch(113)].setPosX(highlight.getPosX());
-                            pawnW[checkMatch(113)].setPosY(highlight.getPosY());
-                            square[highlight.getPosY()][highlight.getPosX()].setContID(pawnW[checkMatch(113)].getID());
-                            break;
-                        case 114:
-                            pawnW[checkMatch(114)].setPosX(highlight.getPosX());
-                            pawnW[checkMatch(114)].setPosY(highlight.getPosY());
-                            square[highlight.getPosY()][highlight.getPosX()].setContID(pawnW[checkMatch(114)].getID());
-                            break;
-                        case 115:
-                            pawnW[checkMatch(115)].setPosX(highlight.getPosX());
-                            pawnW[checkMatch(115)].setPosY(highlight.getPosY());
-                            square[highlight.getPosY()][highlight.getPosX()].setContID(pawnW[checkMatch(115)].getID());
-                            break;
-                        case 116:
-                            pawnW[checkMatch(116)].setPosX(highlight.getPosX());
-                            pawnW[checkMatch(116)].setPosY(highlight.getPosY());
-                            square[highlight.getPosY()][highlight.getPosX()].setContID(pawnW[checkMatch(116)].getID());
-                            break;
-                        case 117:
-                            pawnW[checkMatch(117)].setPosX(highlight.getPosX());
-                            pawnW[checkMatch(117)].setPosY(highlight.getPosY());
-                            square[highlight.getPosY()][highlight.getPosX()].setContID(pawnW[checkMatch(117)].getID());
-                            break;
-                        case 118:
-                            pawnW[checkMatch(118)].setPosX(highlight.getPosX());
-                            pawnW[checkMatch(118)].setPosY(highlight.getPosY());
-                            square[highlight.getPosY()][highlight.getPosX()].setContID(pawnW[checkMatch(118)].getID());
-                            break;
-                        default:
-                            break;
+                int hPosX          = highlight.getPosX();
+                int hPosY          = highlight.getPosY();
+                int sPosX          = selection.getPosX();
+                int sPosY          = selection.getPosY();
+
+                bool hSquareHasID  = square[hPosY][hPosX].getHasID();
+                int  hSquareContID = square[hPosY][hPosX].getContID();
+
+                bool sSquareHasID  = square[sPosY][sPosX].getHasID();
+                int  sSquareContID = square[sPosY][sPosX].getContID();
+
+                if (selection.getVisible() && sSquareHasID){
+                    int i;
+
+                    switch (sSquareContID){
+                        case 111: i = 0;  break;
+                        case 112: i = 1;  break;
+                        case 113: i = 2;  break;
+                        case 114: i = 3;  break;
+                        case 115: i = 4;  break;
+                        case 116: i = 5;  break;
+                        case 117: i = 6;  break;
+                        case 118: i = 7;  break;
+                        case 121: i = 0;  break;
+                        case 122: i = 1;  break;
+                        case 123: i = 2;  break;
+                        case 124: i = 3;  break;
+                        case 125: i = 4;  break;
+                        case 126: i = 5;  break;
+                        case 127: i = 6;  break;
+                        case 128: i = 7;  break;
+                        case 211: i = 8;  break;
+                        case 212: i = 9;  break;
+                        case 213: i = 10; break;
+                        case 214: i = 11; break;
+                        case 215: i = 12; break;
+                        case 216: i = 13; break;
+                        case 217: i = 14; break;
+                        case 218: i = 15; break;
+                        case 221: i = 8;  break;
+                        case 222: i = 9;  break;
+                        case 223: i = 10; break;
+                        case 224: i = 11; break;
+                        case 225: i = 12; break;
+                        case 226: i = 13; break;
+                        case 227: i = 14; break;
+                        case 228: i = 15; break;
+                    }
+
+                    if ((!hSquareHasID || hSquareContID > 200) && sSquareContID < 200){
+                        moveChessMan(i, sSquareContID);
+                    } else if ((!hSquareHasID || hSquareContID < 200) && sSquareContID > 200){
+                        moveChessMan(i, sSquareContID);
                     }
 
                     selection.setVisible(false);

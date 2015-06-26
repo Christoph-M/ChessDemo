@@ -9,6 +9,8 @@ class chessMan : public square
     public:
         chessMan();
 
+        void moveTo(int x, int y){ this->setPosX(x); this->setPosY(y); };
+
         const int getID() const { return _id; };
 
         virtual ~chessMan();

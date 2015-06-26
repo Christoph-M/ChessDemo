@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1435306371 source:d:\dokumente\cpp\chessdemo\main.cpp
+1435316830 source:d:\dokumente\cpp\chessdemo\main.cpp
 	<tchar.h>
 	<windows.h>
 	<cstdio>
@@ -34,7 +34,7 @@
 1435252704 source:d:\dokumente\cpp\chessdemo\src\square.cpp
 	"square.h"
 
-1435305604 d:\dokumente\cpp\chessdemo\include\square.h
+1435312773 d:\dokumente\cpp\chessdemo\include\square.h
 	<windows.h>
 	"header.h"
 
@@ -58,7 +58,7 @@
 
 1435305139 d:\dokumente\cpp\chessdemo\include\header.h
 
-1435305086 d:\dokumente\cpp\chessdemo\include\chessman.h
+1435314304 d:\dokumente\cpp\chessdemo\include\chessman.h
 	<square.h>
 
 1435305086 source:d:\dokumente\cpp\chessdemo\src\chessman.cpp

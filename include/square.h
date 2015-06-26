@@ -17,8 +17,8 @@ class square
 
         void setPosX(int i)     { _posX = i; _coordX = this->_calcPos(i); };
         void setPosY(int i)     { _posY = i; _coordY = this->_calcPos(i); };
-        void setContID(int i)   { _contID = i;};
-        void setHasID(bool i)   { _hasID = i;};
+        void setContID(int i)   { if (i) { _contID = i; _hasID = true; }
+                                  else   { _hasID = false; } };
         void setColor(bool i)   { _isWhite = i; };
         void setVisible(bool i) { _isVisible = i; };
 
