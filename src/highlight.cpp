@@ -6,6 +6,14 @@ highlight::highlight()
     _posY = -1;
 }
 
+bool highlight::validPos(){
+    if (_posX < 0 && _posY < 0){
+        return false;
+    } else {
+        return true;
+    }
+}
+
 highlight::~highlight()
 {
     //dtor

@@ -1,16 +1,18 @@
 #ifndef KNIGHT_H
 #define KNIGHT_H
 
-#include <square.h>
+#include <chessMan.h>
 
 
-class knight : public square
+class knight : public chessMan
 {
     public:
-        knight(bool);
+        knight(bool, int);
+
         virtual ~knight();
     protected:
     private:
+        knight();
 };
 
 #endif // KNIGHT_H

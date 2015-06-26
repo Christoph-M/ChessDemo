@@ -17,6 +17,8 @@ class square
 
         void setPosX(int i)     { _posX = i; _coordX = this->_calcPos(i); };
         void setPosY(int i)     { _posY = i; _coordY = this->_calcPos(i); };
+        void setContID(int i)   { _contID = i;};
+        void setHasID(bool i)   { _hasID = i;};
         void setColor(bool i)   { _isWhite = i; };
         void setVisible(bool i) { _isVisible = i; };
 
@@ -24,6 +26,8 @@ class square
         const int  getPosY()    const { return _posY; };
         const int  getCoordX()  const { return _coordX; };
         const int  getCoordY()  const { return _coordY; };
+        const int  getContID()  const { return _contID; };
+        const bool getHasID()   const { return _hasID; };
         const bool getColor()   const { return _isWhite; };
         const bool getVisible() const { return _isVisible; };
 
@@ -34,6 +38,8 @@ class square
 
         const int _calcPos(int i) const { return (i * 64) + BOARD_EDGE; };  // Calcuation of position based on the grid position
     private:
+        int _contID;
+        bool _hasID;
 };
 
 #endif // SQUARE_H

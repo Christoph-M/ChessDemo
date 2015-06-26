@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1435252444 source:d:\dokumente\cpp\chessdemo\main.cpp
+1435306371 source:d:\dokumente\cpp\chessdemo\main.cpp
 	<tchar.h>
 	<windows.h>
 	<cstdio>
@@ -34,27 +34,33 @@
 1435252704 source:d:\dokumente\cpp\chessdemo\src\square.cpp
 	"square.h"
 
-1435252746 d:\dokumente\cpp\chessdemo\include\square.h
+1435305604 d:\dokumente\cpp\chessdemo\include\square.h
 	<windows.h>
 	"header.h"
 
-1435230901 source:d:\dokumente\cpp\chessdemo\src\pawn.cpp
+1435304895 source:d:\dokumente\cpp\chessdemo\src\pawn.cpp
 	"pawn.h"
 
-1435248853 d:\dokumente\cpp\chessdemo\include\pawn.h
-	<square.h>
+1435305019 d:\dokumente\cpp\chessdemo\include\pawn.h
+	<chessMan.h>
 
-1435230901 source:d:\dokumente\cpp\chessdemo\src\knight.cpp
+1435304895 source:d:\dokumente\cpp\chessdemo\src\knight.cpp
 	"knight.h"
 
-1435248853 d:\dokumente\cpp\chessdemo\include\knight.h
+1435305031 d:\dokumente\cpp\chessdemo\include\knight.h
+	<chessMan.h>
+
+1435306499 d:\dokumente\cpp\chessdemo\include\highlight.h
 	<square.h>
 
-1435248919 d:\dokumente\cpp\chessdemo\include\highlight.h
-	<square.h>
-
-1435248919 source:d:\dokumente\cpp\chessdemo\src\highlight.cpp
+1435306517 source:d:\dokumente\cpp\chessdemo\src\highlight.cpp
 	"highlight.h"
 
-1435250837 d:\dokumente\cpp\chessdemo\include\header.h
+1435305139 d:\dokumente\cpp\chessdemo\include\header.h
+
+1435305086 d:\dokumente\cpp\chessdemo\include\chessman.h
+	<square.h>
+
+1435305086 source:d:\dokumente\cpp\chessdemo\src\chessman.cpp
+	"chessMan.h"
 
