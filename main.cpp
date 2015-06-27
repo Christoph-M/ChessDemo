@@ -18,6 +18,8 @@
 /*  Declare Windows procedure  */
 LRESULT CALLBACK WindowProcedure(HWND, UINT, WPARAM, LPARAM);
 
+void moveChessMan(int);
+
 /*  Make the class name into a global variable  */
 TCHAR szClassName[] = _T("Chess Demo");
 bool gameRunning = true;    // Game runs until this value is set to false
@@ -73,14 +75,14 @@ int WINAPI WinMain(HINSTANCE hThisInstance,
     }
 
     // Set position and color for chessboard squares
-    bool isWhite = true;
+    bool color = WHITE;
 
     for (int y = 0; y < BOARD_HEIGHT; ++y){     // Iterate through chessboard squares
         for (int x = 0; x < BOARD_WIDTH; ++x){
             square[y][x].setPos(x, y);          // Set position of current square
-            square[y][x].setColor(isWhite);     // Set color of current square
+            square[y][x].setColor(color);       // Set color of current square
 
-            if (x < BOARD_WIDTH - 1 || BOARD_WIDTH % 2) isWhite = !isWhite; // If loop is at the end of the board or if BOARD_WIDTH is uneven, negate isWhite
+            if (x < BOARD_WIDTH - 1 || BOARD_WIDTH % 2) color = !color; // If loop is at the end of the board or if BOARD_WIDTH is uneven, negate color
         }
     }
 
@@ -106,6 +108,7 @@ int WINAPI WinMain(HINSTANCE hThisInstance,
             }
         }
 
+        chessMen[i].setVisible(true);       // Set visibility of current chessMan to true
         square[chessMen[i].getPosY()][chessMen[i].getPosX()].setContID(chessMen[i].getID());    // Set containedID of square under current chessMan to ID of current chessMan
     }
 
@@ -181,7 +184,7 @@ int WINAPI WinMain(HINSTANCE hThisInstance,
             //__________________________________________Draw Chessmen___________________________________________
 
             for (int i = 0; i < 32; ++i){   // Iterate through chessMen
-                if (chessMen[i].getColor() == WHITE){   // Check if current chessMen is WHITE
+                if (chessMen[i].getColor() == WHITE && chessMen[i].getVisible()){   // Check if current chessMen is WHITE and visible
                     switch (chessMen[i].getType()){     // If current chessMan is WHITE, check for type
                         case PAWN:
                             chessMen[i].drawBitmap(memHdc, bmpHdc, bmpPawnW, bmpPawnM);     // If current chessMan is PAWN, draw white pawn to memory buffer
@@ -190,8 +193,8 @@ int WINAPI WinMain(HINSTANCE hThisInstance,
                             chessMen[i].drawBitmap(memHdc, bmpHdc, bmpKnightW, bmpKnightM); // If current chessMan is KNIGHT, draw white knight to memory buffer
                             break;
                     }
-                } else {
-                    switch (chessMen[i].getType()){     // If current chessMan is not WHITE, check for type
+                } else if (chessMen[i].getVisible()) {
+                    switch (chessMen[i].getType()){     // If current chessMan is not WHITE but visible, check for type
                         case PAWN:
                             chessMen[i].drawBitmap(memHdc, bmpHdc, bmpPawnB, bmpPawnM);     // If current chessMan is PAWN, draw black pawn to memory buffer
                             break;
@@ -272,18 +275,24 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
                 int sPosY          = selection.getPosY();
 
                 bool hSquareHasID  = square[hPosY][hPosX].getHasID();   // Assign hasID and containedID of highlighted square and selected square to variables for clarity
+                int  hSquareContID = square[hPosY][hPosX].getContID();
 
                 bool sSquareHasID  = square[sPosY][sPosX].getHasID();
                 int  sSquareContID = square[sPosY][sPosX].getContID();
 
                 if (selection.getVisible() && sSquareHasID){        // Check if selection is visible and selected square has an ID
-                    int si = chessMen[0].getIndex(sSquareContID);   // get index of chessman on selected square
+                    int hi = chessMen[0].getIndex(hSquareContID);   // Get index of chessman on highlighted square
+                    int si = chessMen[0].getIndex(sSquareContID);   // Get index of chessman on selected square
 
-                    if (!hSquareHasID){ // Check if highlighted square has an ID
-                        chessMen[si].moveTo(highlight.getPosX(), highlight.getPosY());  // If highlighted square has an ID, move chessMan on selected square to highlighted square
+                    if (hSquareHasID){ // Check if highlighted square has an ID
+                        // If highlighted square has an ID, check if selected and highlighted chessMan have the same color
+                        if (chessMen[si].getColor() != chessMen[hi].getColor()){
+                            chessMen[hi].setVisible(false); // If selected and highlighted chessMan don't have the same color, set visibility of highlighted chessMan to false
 
-                        square[selection.getPosY()][selection.getPosX()].setContID(0);  // Set containedID and hasID of selected square to 0
-                        square[highlight.getPosY()][highlight.getPosX()].setContID(chessMen[si].getID());   // Set containedID of highlighted square to ID of moved chessman
+                            moveChessMan(si);               // Move selected chessMan
+                        }
+                    } else {
+                        moveChessMan(si);  // If highlighted square doesn't have an ID, move selected chessMan
                     }
 
                     selection.setVisible(false);    // Set visibility of selection to false
@@ -292,8 +301,8 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
                     selection.setVisible(true);
                     selection.invalidatePos();
                 }
-            } else {    // If cursor is not within the chessboard, set selection visibility to false
-                selection.setVisible(false);
+            } else {
+                selection.setVisible(false);    // If cursor is not within the chessboard, set selection visibility to false
             }
             break;
         case WM_RBUTTONUP:
@@ -308,4 +317,11 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
     }
 
     return 0;
+}
+
+void moveChessMan(int i){
+    chessMen[i].moveTo(highlight.getPosX(), highlight.getPosY());   // Move selected chessMan to highlighted square
+
+    square[selection.getPosY()][selection.getPosX()].setContID(0);  // Set containedID of selected square to 0
+    square[highlight.getPosY()][highlight.getPosX()].setContID(chessMen[i].getID());   // Set containedID of highlighted square to ID of moved chessman
 }

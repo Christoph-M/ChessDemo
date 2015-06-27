@@ -9,11 +9,13 @@ class chessMan : public square
     public:
         chessMan(bool, int, int);
 
-        void moveTo(int x, int y){ this->setPosX(x); this->setPosY(y); };
-        const int getType() const { return _type; };
-        const int getIndex(int) const;
+        void moveTo(int x, int y){ this->setPos(x, y); };
 
-        const int getID() const { return _id; };
+        void setVisible(bool);
+
+        const int getType()     const { return _type; };
+        const int getID()       const { return _id;   };
+        const int getIndex(int) const;
 
         virtual ~chessMan();
     protected:

@@ -1,6 +1,8 @@
 #ifndef WWND_H
 #define WWND_H
 
+/// Diese Klasse wurde zum größten Teil aus diesem Tutorial übernommen: http://www.functionx.com/win32/Lesson06.htm
+
 #include <windows.h>
 #include <cstdio>
 #include <typeinfo>

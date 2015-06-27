@@ -6,7 +6,15 @@ highlight::highlight()
     _posY = -1;
 }
 
-bool highlight::validPos(){
+void highlight::setPos(int x, int y){
+    _posX = x;
+    _coordX = this->_calcPos(x) - 4;
+
+    _posY = y;
+    _coordY = this->_calcPos(y) - 4;
+}
+
+bool highlight::validPos() const{
     if (_posX < 0 && _posY < 0){
         return false;
     } else {

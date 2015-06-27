@@ -7,9 +7,14 @@ chessMan::chessMan(bool isWhite, int type, int id):
     _isWhite = isWhite; //ctor
 }
 
+void chessMan::setVisible(bool i){
+    _isVisible = i;
+    if (!i) this->setPos(-1, -1);
+}
+
 const int chessMan::getIndex(int i) const{
     switch (i){
-        case 111: return 0;
+        case 111: return 0;     // WHITE PAWNs
         case 112: return 1;
         case 113: return 2;
         case 114: return 3;
@@ -18,7 +23,7 @@ const int chessMan::getIndex(int i) const{
         case 117: return 6;
         case 118: return 7;
 
-        case 121: return 16;
+        case 121: return 16;    // WHITE KNIGHTs
         case 122: return 17;
         case 123: return 18;
         case 124: return 19;
@@ -27,7 +32,7 @@ const int chessMan::getIndex(int i) const{
         case 127: return 22;
         case 128: return 23;
 
-        case 211: return 8;
+        case 211: return 8;     // BLACK PAWNs
         case 212: return 9;
         case 213: return 10;
         case 214: return 11;
@@ -36,7 +41,7 @@ const int chessMan::getIndex(int i) const{
         case 217: return 14;
         case 218: return 15;
 
-        case 221: return 24;
+        case 221: return 24;    // BLACK KNIGHTs
         case 222: return 25;
         case 223: return 26;
         case 224: return 27;

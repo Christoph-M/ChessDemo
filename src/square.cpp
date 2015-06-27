@@ -37,6 +37,23 @@ const bool square::cursorWithinSquare(POINT & p) const{
     }
 }
 
+void square::setPos(int x, int y){
+    _posX = x;
+    _coordX = this->_calcPos(x);
+
+    _posY = y;
+    _coordY = this->_calcPos(y);
+}
+
+void square::setContID(int i){
+    if (i){
+        _contID = i;
+        _hasID = true;
+    } else {
+        _hasID = false;
+    }
+}
+
 square::~square()
 {
     //dtor
