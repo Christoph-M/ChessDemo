@@ -13,8 +13,7 @@
 #include "wWnd.h"
 #include "square.h"
 #include "highlight.h"
-#include "pawn.h"
-#include "knight.h"
+#include "chessMan.h"
 
 /*  Declare Windows procedure  */
 LRESULT CALLBACK WindowProcedure(HWND, UINT, WPARAM, LPARAM);
@@ -35,30 +34,15 @@ square    square[BOARD_HEIGHT][BOARD_WIDTH], board;   // Object declaration for 
 highlight highlight, selection;                       // Object declarations for the highlight and selection squares
 
 // Chessman objects
-pawn   pawns[16]   = {pawn(WHITE, 111),   pawn(WHITE, 112),   pawn(WHITE, 113),   pawn(WHITE, 114),     // Object declarations for the white pawns
-                      pawn(WHITE, 115),   pawn(WHITE, 116),   pawn(WHITE, 117),   pawn(WHITE, 118),
-                      pawn(BLACK, 211),   pawn(BLACK, 212),   pawn(BLACK, 213),   pawn(BLACK, 214),     // Object declarations for the black pawns
-                      pawn(BLACK, 215),   pawn(BLACK, 216),   pawn(BLACK, 217),   pawn(BLACK, 218)};
-knight knights[16] = {knight(WHITE, 121), knight(WHITE, 122), knight(WHITE, 123), knight(WHITE, 124),   // Object declarations for the white knights
-                      knight(WHITE, 125), knight(WHITE, 126), knight(WHITE, 127), knight(WHITE, 128),
-                      knight(BLACK, 221), knight(BLACK, 222), knight(BLACK, 223), knight(BLACK, 224),   // Object declarations for the black knights
-                      knight(BLACK, 225), knight(BLACK, 226), knight(BLACK, 227), knight(BLACK, 228)};
+chessMan chessMen[32]   = {chessMan(WHITE, PAWN,   111), chessMan(WHITE, PAWN,   112), chessMan(WHITE, PAWN,   113), chessMan(WHITE, PAWN,   114),   // Object declarations for the white pawns
+                           chessMan(WHITE, PAWN,   115), chessMan(WHITE, PAWN,   116), chessMan(WHITE, PAWN,   117), chessMan(WHITE, PAWN,   118),
+                           chessMan(BLACK, PAWN,   211), chessMan(BLACK, PAWN,   212), chessMan(BLACK, PAWN,   213), chessMan(BLACK, PAWN,   214),   // Object declarations for the black pawns
+                           chessMan(BLACK, PAWN,   215), chessMan(BLACK, PAWN,   216), chessMan(BLACK, PAWN,   217), chessMan(BLACK, PAWN,   218),
+                           chessMan(WHITE, KNIGHT, 121), chessMan(WHITE, KNIGHT, 122), chessMan(WHITE, KNIGHT, 123), chessMan(WHITE, KNIGHT, 124),   // Object declarations for the white knights
+                           chessMan(WHITE, KNIGHT, 125), chessMan(WHITE, KNIGHT, 126), chessMan(WHITE, KNIGHT, 127), chessMan(WHITE, KNIGHT, 128),
+                           chessMan(BLACK, KNIGHT, 221), chessMan(BLACK, KNIGHT, 222), chessMan(BLACK, KNIGHT, 223), chessMan(BLACK, KNIGHT, 224),   // Object declarations for the black knights
+                           chessMan(BLACK, KNIGHT, 225), chessMan(BLACK, KNIGHT, 226), chessMan(BLACK, KNIGHT, 227), chessMan(BLACK, KNIGHT, 228)};
 
-void moveChessMan(int i, int id){
-    if (id < 120 || (id < 220 && id > 210)){
-        pawns[i].moveTo(highlight.getPosX(), highlight.getPosY());
-
-        square[selection.getPosY()][selection.getPosX()].setContID(0);
-
-        square[highlight.getPosY()][highlight.getPosX()].setContID(pawns[i].getID());
-    } else if ((id > 120 && id < 130) || id > 220){
-        knights[i].moveTo(highlight.getPosX(), highlight.getPosY());
-
-        square[selection.getPosY()][selection.getPosX()].setContID(0);
-
-        square[highlight.getPosY()][highlight.getPosX()].setContID(knights[i].getID());
-    }
-}
 
 
 
@@ -79,6 +63,7 @@ int WINAPI WinMain(HINSTANCE hThisInstance,
 
     wWnd window;
 
+    // Create window
     window.create(hThisInstance, szClassName, _T("Chess Demo"), (BOARD_WIDTH * 64) + (BOARD_EDGE + 30), (BOARD_HEIGHT * 64) + (BOARD_EDGE + 50));
 
     /* Make the window visible on the screen */
@@ -90,35 +75,38 @@ int WINAPI WinMain(HINSTANCE hThisInstance,
     // Set position and color for chessboard squares
     bool isWhite = true;
 
-    for (int y = 0; y < BOARD_HEIGHT; ++y){
+    for (int y = 0; y < BOARD_HEIGHT; ++y){     // Iterate through chessboard squares
         for (int x = 0; x < BOARD_WIDTH; ++x){
-            square[y][x].setPosX(x);
-            square[y][x].setPosY(y);
-            square[y][x].setColor(isWhite);
+            square[y][x].setPos(x, y);          // Set position of current square
+            square[y][x].setColor(isWhite);     // Set color of current square
 
-            if (x < BOARD_WIDTH - 1 || BOARD_WIDTH % 2) isWhite = !isWhite;
+            if (x < BOARD_WIDTH - 1 || BOARD_WIDTH % 2) isWhite = !isWhite; // If loop is at the end of the board or if BOARD_WIDTH is uneven, negate isWhite
         }
     }
 
-    // Set position for chessmen
-    for (int i = 0; i < 16; ++i){
-        if (pawns[i].getColor() == WHITE){
-            pawns[i].setPosX(((BOARD_WIDTH - 8) / 2) + i);
-            pawns[i].setPosY(BOARD_HEIGHT - 2);
-            square[pawns[i].getPosY()][pawns[i].getPosX()].setContID(pawns[i].getID());
-
-            knights[i].setPosX(((BOARD_WIDTH - 8) / 2) + i);
-            knights[i].setPosY(BOARD_HEIGHT - 1);
-            square[knights[i].getPosY()][knights[i].getPosX()].setContID(knights[i].getID());
+    // Set position for chessMen
+    for (int i = 0; i < 32; ++i){   // Iterate through chessMen
+        if (chessMen[i].getColor() == WHITE){   // Check if current chessMan is WHITE
+            switch (chessMen[i].getType()){     // If current chessMan is WHITE, check for type
+                case PAWN:
+                    chessMen[i].setPos(((BOARD_WIDTH - 8) / 2) + i, BOARD_HEIGHT - 2);      // If current chessMan is PAWN, set position for current chessMan
+                    break;
+                case KNIGHT:
+                    chessMen[i].setPos(((BOARD_WIDTH - 8) / 2) + i - 16, BOARD_HEIGHT - 1); // If current chessMan is KNIGHT, set position for current chessMan
+                    break;
+            }
         } else {
-            pawns[i].setPosX(((BOARD_WIDTH - 8) / 2) + (i - 8));
-            pawns[i].setPosY(1);
-            square[pawns[i].getPosY()][pawns[i].getPosX()].setContID(pawns[i].getID());
-
-            knights[i].setPosX(((BOARD_WIDTH - 8) / 2) + (i - 8));
-            knights[i].setPosY(0);
-            square[knights[i].getPosY()][knights[i].getPosX()].setContID(knights[i].getID());
+            switch (chessMen[i].getType()){     // If current chessMan is not WHITE, check for type
+                case PAWN:
+                    chessMen[i].setPos(((BOARD_WIDTH - 8) / 2) + (i - 8), 1);   // If current chessMan is PAWN, set position for current chessMan
+                    break;
+                case KNIGHT:
+                    chessMen[i].setPos(((BOARD_WIDTH - 8) / 2) + (i - 24), 0);  // If current chessMan is KNIGHT, set position for current chessMan
+                    break;
+            }
         }
+
+        square[chessMen[i].getPosY()][chessMen[i].getPosX()].setContID(chessMen[i].getID());    // Set containedID of square under current chessMan to ID of current chessMan
     }
 
     // Main program loop. Runs until gameRunning is set to false
@@ -136,15 +124,13 @@ int WINAPI WinMain(HINSTANCE hThisInstance,
         if (board.cursorWithinBoard(p)){    // Check if cursor is within the chessboard
             for (int y = 0; y < BOARD_HEIGHT; ++y){  // If cursor is within the chessboard, iterate through chessboard squares
                for (int x = 0; x < BOARD_WIDTH; ++x){
-                    if (square[y][x].cursorWithinSquare(p)){    // Check if the cursor is within the current chessboard square
-                        if (!selection.validPos()){             // If the cursor is within the chessboard square, check if selection has a valid position
-                            selection.setPosX(square[y][x].getPosX());            // If selection has an invalid position, set position of current chessboard square to selection
-                            selection.setPosY(square[y][x].getPosY());
+                    if (square[y][x].cursorWithinSquare(p)){    // Check if the cursor is within the current square
+                        if (!selection.validPos()){             // If the cursor is within the current square, check if selection has a valid position
+                            selection.setPos(square[y][x].getPosX(), square[y][x].getPosY()); // If selection has an invalid position, set position of current square to selection
                         }
 
-                        // If the cursor is within the chessboard square, set position of current chessboard square to highlight and set visibility of highlight to true
-                        highlight.setPosX(square[y][x].getPosX());
-                        highlight.setPosY(square[y][x].getPosY());
+                        // If the cursor is within the current square, set position of current square to highlight and set visibility of highlight to true
+                        highlight.setPos(square[y][x].getPosX(), square[y][x].getPosY());
                         highlight.setVisible(true);
                     }
                 }
@@ -184,25 +170,35 @@ int WINAPI WinMain(HINSTANCE hThisInstance,
 
             for (int y = 0; y < BOARD_HEIGHT; ++y){  // Iterate through chessboard squares
                 for (int x = 0; x < BOARD_WIDTH; ++x){
-                    if (square[y][x].getColor()){   // Check square color (true = white | false = black)
-                        square[y][x].drawBitmap(memHdc, bmpHdc, bmpWhiteSquare);    // If square color is white, draw white square to memory buffer
+                    if (square[y][x].getColor() == WHITE){   // Check if current square is WHITE
+                        square[y][x].drawBitmap(memHdc, bmpHdc, bmpWhiteSquare);    // If current square is WHITE, draw white square to memory buffer
                     } else {
-                        square[y][x].drawBitmap(memHdc, bmpHdc, bmpBlackSquare);    // If square color is black, draw black square to memory buffer
+                        square[y][x].drawBitmap(memHdc, bmpHdc, bmpBlackSquare);    // If current square is not WHITE, draw black square to memory buffer
                     }
                 }
             }
 
             //__________________________________________Draw Chessmen___________________________________________
 
-            for (int i = 0; i < 16; ++i){
-                if (pawns[i].getColor() == WHITE){
-                    pawns[i].drawBitmap(memHdc, bmpHdc, bmpPawnW, bmpPawnM);
-
-                    knights[i].drawBitmap(memHdc, bmpHdc, bmpKnightW, bmpKnightM);
+            for (int i = 0; i < 32; ++i){   // Iterate through chessMen
+                if (chessMen[i].getColor() == WHITE){   // Check if current chessMen is WHITE
+                    switch (chessMen[i].getType()){     // If current chessMan is WHITE, check for type
+                        case PAWN:
+                            chessMen[i].drawBitmap(memHdc, bmpHdc, bmpPawnW, bmpPawnM);     // If current chessMan is PAWN, draw white pawn to memory buffer
+                            break;
+                        case KNIGHT:
+                            chessMen[i].drawBitmap(memHdc, bmpHdc, bmpKnightW, bmpKnightM); // If current chessMan is KNIGHT, draw white knight to memory buffer
+                            break;
+                    }
                 } else {
-                    pawns[i].drawBitmap(memHdc, bmpHdc, bmpPawnB, bmpPawnM);
-
-                    knights[i].drawBitmap(memHdc, bmpHdc, bmpKnightB, bmpKnightM);
+                    switch (chessMen[i].getType()){     // If current chessMan is not WHITE, check for type
+                        case PAWN:
+                            chessMen[i].drawBitmap(memHdc, bmpHdc, bmpPawnB, bmpPawnM);     // If current chessMan is PAWN, draw black pawn to memory buffer
+                            break;
+                        case KNIGHT:
+                            chessMen[i].drawBitmap(memHdc, bmpHdc, bmpKnightB, bmpKnightM); // If current chessMan is KNIGHT, draw black knight to memory buffer
+                            break;
+                    }
                 }
             }
 
@@ -270,64 +266,29 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
         case WM_LBUTTONUP:
             // On left mouse button up, check if cursor is within the chessboard
             if (board.cursorWithinBoard(p)){
-                int hPosX          = highlight.getPosX();
+                int hPosX          = highlight.getPosX();   // Assign position of highlight and selection to variables for clarity
                 int hPosY          = highlight.getPosY();
                 int sPosX          = selection.getPosX();
                 int sPosY          = selection.getPosY();
 
-                bool hSquareHasID  = square[hPosY][hPosX].getHasID();
-                int  hSquareContID = square[hPosY][hPosX].getContID();
+                bool hSquareHasID  = square[hPosY][hPosX].getHasID();   // Assign hasID and containedID of highlighted square and selected square to variables for clarity
 
                 bool sSquareHasID  = square[sPosY][sPosX].getHasID();
                 int  sSquareContID = square[sPosY][sPosX].getContID();
 
-                if (selection.getVisible() && sSquareHasID){
-                    int i;
+                if (selection.getVisible() && sSquareHasID){        // Check if selection is visible and selected square has an ID
+                    int si = chessMen[0].getIndex(sSquareContID);   // get index of chessman on selected square
 
-                    switch (sSquareContID){
-                        case 111: i = 0;  break;
-                        case 112: i = 1;  break;
-                        case 113: i = 2;  break;
-                        case 114: i = 3;  break;
-                        case 115: i = 4;  break;
-                        case 116: i = 5;  break;
-                        case 117: i = 6;  break;
-                        case 118: i = 7;  break;
-                        case 121: i = 0;  break;
-                        case 122: i = 1;  break;
-                        case 123: i = 2;  break;
-                        case 124: i = 3;  break;
-                        case 125: i = 4;  break;
-                        case 126: i = 5;  break;
-                        case 127: i = 6;  break;
-                        case 128: i = 7;  break;
-                        case 211: i = 8;  break;
-                        case 212: i = 9;  break;
-                        case 213: i = 10; break;
-                        case 214: i = 11; break;
-                        case 215: i = 12; break;
-                        case 216: i = 13; break;
-                        case 217: i = 14; break;
-                        case 218: i = 15; break;
-                        case 221: i = 8;  break;
-                        case 222: i = 9;  break;
-                        case 223: i = 10; break;
-                        case 224: i = 11; break;
-                        case 225: i = 12; break;
-                        case 226: i = 13; break;
-                        case 227: i = 14; break;
-                        case 228: i = 15; break;
+                    if (!hSquareHasID){ // Check if highlighted square has an ID
+                        chessMen[si].moveTo(highlight.getPosX(), highlight.getPosY());  // If highlighted square has an ID, move chessMan on selected square to highlighted square
+
+                        square[selection.getPosY()][selection.getPosX()].setContID(0);  // Set containedID and hasID of selected square to 0
+                        square[highlight.getPosY()][highlight.getPosX()].setContID(chessMen[si].getID());   // Set containedID of highlighted square to ID of moved chessman
                     }
 
-                    if ((!hSquareHasID || hSquareContID > 200) && sSquareContID < 200){
-                        moveChessMan(i, sSquareContID);
-                    } else if ((!hSquareHasID || hSquareContID < 200) && sSquareContID > 200){
-                        moveChessMan(i, sSquareContID);
-                    }
-
-                    selection.setVisible(false);
+                    selection.setVisible(false);    // Set visibility of selection to false
                 } else {
-                    // If cursor is within the chessboard, set selection visibility to true and invalidate position, so a new position can be assigned
+                    // If selection is not visible and selected square doesn't have an ID, set selection visibility to true and invalidate position, so a new position can be assigned
                     selection.setVisible(true);
                     selection.invalidatePos();
                 }

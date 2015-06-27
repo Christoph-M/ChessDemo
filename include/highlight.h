@@ -9,9 +9,11 @@ class highlight : public square
     public:
         highlight();
 
-        void setPosX(int i)  { _posX = i; _coordX = (i * 64) + 20 - 4; };
-        void setPosY(int i)  { _posY = i; _coordY = (i * 64) + 20 - 4; };
-        void invalidatePos() { this->setPosX(-1); this->setPosY(-1); };
+        void setPos(int x, int y) { _posX = x; _coordX = this->_calcPos(x) - 4;
+                                    _posY = y; _coordY = this->_calcPos(y) - 4; };
+        void setPosX(int i)  { _posX = i; _coordX = this->_calcPos(i) - 4; };
+        void setPosY(int i)  { _posY = i; _coordY = this->_calcPos(i) - 4; };
+        void invalidatePos() { _posX = -1; _posY = -1; };
         bool validPos();
 
         virtual ~highlight();

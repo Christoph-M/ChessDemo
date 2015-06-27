@@ -15,6 +15,8 @@ class square
         const bool cursorWithinBoard(POINT&)                  const;
         const bool cursorWithinSquare(POINT&)                 const;
 
+        void setPos(int x, int y) { _posX = x; _coordX = this->_calcPos(x);
+                                    _posY = y; _coordY = this->_calcPos(y); };
         void setPosX(int i)     { _posX = i; _coordX = this->_calcPos(i); };
         void setPosY(int i)     { _posY = i; _coordY = this->_calcPos(i); };
         void setContID(int i)   { if (i) { _contID = i; _hasID = true; }

@@ -1,17 +1,15 @@
 #ifndef PAWN_H
 #define PAWN_H
 
-#include <chessMan.h>
 
-
-class pawn : public chessMan
+class pawn
 {
     public:
-        pawn(bool, int);
+        pawn(/*bool, int*/);
         virtual ~pawn();
     protected:
     private:
-        pawn();
+        //pawn();
 };
 
 #endif // PAWN_H

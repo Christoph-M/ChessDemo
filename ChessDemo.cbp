@@ -39,6 +39,7 @@
 			<Add library="kernel32" />
 			<Add library="comctl32" />
 		</Linker>
+		<Unit filename="include/chessMan.h" />
 		<Unit filename="include/header.h" />
 		<Unit filename="include/highlight.h" />
 		<Unit filename="include/knight.h" />
@@ -47,6 +48,7 @@
 		<Unit filename="include/wApp.h" />
 		<Unit filename="include/wWnd.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="src/chessMan.cpp" />
 		<Unit filename="src/highlight.cpp" />
 		<Unit filename="src/knight.cpp" />
 		<Unit filename="src/pawn.cpp" />
