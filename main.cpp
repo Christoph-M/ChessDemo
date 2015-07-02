@@ -159,9 +159,9 @@ int WINAPI WinMain(HINSTANCE hThisInstance,
             bmpPawnW       = (HBITMAP)LoadImage(GetModuleHandle(NULL), "bmp/bauer_weiss.bmp",    IMAGE_BITMAP, 64, 64, LR_LOADFROMFILE);
             bmpPawnB       = (HBITMAP)LoadImage(GetModuleHandle(NULL), "bmp/figur_schwarz.bmp",  IMAGE_BITMAP, 64, 64, LR_LOADFROMFILE);
             bmpPawnM       = (HBITMAP)LoadImage(GetModuleHandle(NULL), "bmp/bauer_mask.bmp",     IMAGE_BITMAP, 64, 64, LR_LOADFROMFILE);
-            bmpKnightW     = (HBITMAP)LoadImage(GetModuleHandle(NULL), "bmp/turm_weiss.bmp",     IMAGE_BITMAP, 64, 64, LR_LOADFROMFILE);
+            bmpKnightW     = (HBITMAP)LoadImage(GetModuleHandle(NULL), "bmp/springer_weiss.bmp", IMAGE_BITMAP, 64, 64, LR_LOADFROMFILE);
             bmpKnightB     = (HBITMAP)LoadImage(GetModuleHandle(NULL), "bmp/figur_schwarz.bmp",  IMAGE_BITMAP, 64, 64, LR_LOADFROMFILE);
-            bmpKnightM     = (HBITMAP)LoadImage(GetModuleHandle(NULL), "bmp/turm_mask.bmp",      IMAGE_BITMAP, 64, 64, LR_LOADFROMFILE);
+            bmpKnightM     = (HBITMAP)LoadImage(GetModuleHandle(NULL), "bmp/springer_mask.bmp",  IMAGE_BITMAP, 64, 64, LR_LOADFROMFILE);
             HDC     memHdc = CreateCompatibleDC(hdc);   // Image-Buffer
             HDC     bmpHdc = CreateCompatibleDC(hdc);   // Bitmap-Buffer
             HBITMAP memHbm = CreateCompatibleBitmap(hdc, winWidth, winHeight);  // Canvas
@@ -207,7 +207,7 @@ int WINAPI WinMain(HINSTANCE hThisInstance,
 
             //__________________________________________Draw Highlight__________________________________________
 
-            if (highlight.getVisible()){    // Check if highlight is visible
+            if (highlight.getVisible()){                                                // Check if highlight is visible
                 highlight.drawBitmap(memHdc, bmpHdc, bmpHighlight, bmpHighlightM);      // If highlight is visible, draw to memory buffer
             }
 
@@ -241,7 +241,7 @@ int WINAPI WinMain(HINSTANCE hThisInstance,
             DeleteObject(bmpKnightM);
         ReleaseDC(gHwnd, hdc);
 
-        Sleep(20);
+        Sleep(20);  // Sleep for 20 milliseconds to reduce CPU load
     }
 
     /* The program return-value is 0 - The value that PostQuitMessage() gave */

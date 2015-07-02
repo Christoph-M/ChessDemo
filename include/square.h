@@ -2,6 +2,7 @@
 #define SQUARE_H
 
 #include <windows.h>
+#include <cstdio>
 
 #include "header.h"
 
@@ -34,7 +35,7 @@ class square
         int  _posX, _posY, _coordX, _coordY;
         bool _isWhite, _isVisible;
 
-        const int _calcPos(int i) const { return (i * 64) + BOARD_EDGE; };  // Calcuation of position based on the grid position
+        const int _calcPos(int i) const { return (i * 64) + BOARD_EDGE; };  // Calcuation of position based on the grid position. Also used to calculate board size.
     private:
         int  _contID;
         bool _hasID;

@@ -7,11 +7,13 @@ chessMan::chessMan(bool isWhite, int type, int id):
     _isWhite = isWhite; //ctor
 }
 
+//_____________Set visibility of chessMan____________
 void chessMan::setVisible(bool i){
     _isVisible = i;
-    if (!i) this->setPos(-1, -1);
+    if (!i) this->setPos(-1, -1);   // If visibility is set to false, invalidate position
 }
 
+//_____________Get index of chessMan_______________
 const int chessMan::getIndex(int i) const{
     switch (i){
         case 111: return 0;     // WHITE PAWNs
@@ -55,5 +57,5 @@ const int chessMan::getIndex(int i) const{
 
 chessMan::~chessMan()
 {
-    //dtor
+    puts("Destructor call for chessMan Object\n"); //dtor
 }

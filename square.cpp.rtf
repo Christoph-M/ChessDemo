@@ -1,0 +1,143 @@
+{\rtf1\ansi\deff0\deftab480
+
+{\fonttbl
+{\f000 Courier New;}
+{\f001 Courier New;}
+{\f002 Courier New;}
+{\f003 Courier New;}
+{\f004 Courier New;}
+{\f005 Courier New;}
+{\f006 Courier New;}
+{\f007 Courier New;}
+{\f008 Courier New;}
+{\f009 Courier New;}
+}
+
+{\colortbl
+\red000\green000\blue000;
+\red255\green255\blue255;
+\red000\green128\blue000;
+\red255\green255\blue255;
+\red255\green128\blue000;
+\red255\green255\blue255;
+\red000\green000\blue255;
+\red255\green255\blue255;
+\red128\green128\blue128;
+\red255\green255\blue255;
+\red128\green064\blue000;
+\red255\green255\blue255;
+\red000\green000\blue128;
+\red255\green255\blue255;
+\red000\green000\blue000;
+\red255\green255\blue255;
+\red128\green000\blue255;
+\red255\green255\blue255;
+\red000\green000\blue000;
+\red255\green255\blue255;
+}
+
+\f0\fs20\cb19\cf18 \highlight11\cf10 #include <windows.h>\par
+#include <cstdio>\par
+\highlight1\cf0 \par
+\highlight11\cf10 #include "header.h"\par
+\highlight1\cf0 \par
+\highlight17\cf16 class\highlight1\cf0  \highlight15\cf14 square\highlight1\cf0 \par
+\highlight13\cf12\b \{\highlight1\cf0\b0 \par
+    \highlight17\cf16 public\highlight13\cf12\b :\highlight1\cf0\b0 \par
+        \highlight15\cf14 square\highlight13\cf12\b ();\highlight1\cf0\b0 \par
+\par
+        \highlight17\cf16 void\highlight1\cf0        \highlight15\cf14 drawBitmap\highlight13\cf12\b (\highlight15\cf14\b0 HDC\highlight13\cf12\b &,\highlight1\cf0\b0  \highlight15\cf14 HDC\highlight13\cf12\b &,\highlight1\cf0\b0  \highlight15\cf14 HBITMAP\highlight13\cf12\b &)\highlight1\cf0\b0            \highlight17\cf16 const\highlight13\cf12\b ;\highlight1\cf0\b0 \par
+        \highlight17\cf16 void\highlight1\cf0        \highlight15\cf14 drawBitmap\highlight13\cf12\b (\highlight15\cf14\b0 HDC\highlight13\cf12\b &,\highlight1\cf0\b0  \highlight15\cf14 HDC\highlight13\cf12\b &,\highlight1\cf0\b0  \highlight15\cf14 HBITMAP\highlight13\cf12\b &,\highlight1\cf0\b0  \highlight15\cf14 HBITMAP\highlight13\cf12\b &)\highlight1\cf0\b0  \highlight17\cf16 const\highlight13\cf12\b ;\highlight1\cf0\b0 \par
+        \highlight17\cf16 const\highlight1\cf0  \highlight17\cf16 bool\highlight1\cf0  \highlight15\cf14 cursorWithinBoard\highlight13\cf12\b (\highlight15\cf14\b0 POINT\highlight13\cf12\b &)\highlight1\cf0\b0                   \highlight17\cf16 const\highlight13\cf12\b ;\highlight1\cf0\b0 \par
+        \highlight17\cf16 const\highlight1\cf0  \highlight17\cf16 bool\highlight1\cf0  \highlight15\cf14 cursorWithinSquare\highlight13\cf12\b (\highlight15\cf14\b0 POINT\highlight13\cf12\b &)\highlight1\cf0\b0                  \highlight17\cf16 const\highlight13\cf12\b ;\highlight1\cf0\b0 \par
+\par
+        \highlight17\cf16 void\highlight1\cf0  \highlight15\cf14 setPos\highlight13\cf12\b (\highlight17\cf16\b0 int\highlight13\cf12\b ,\highlight1\cf0\b0  \highlight17\cf16 int\highlight13\cf12\b );\highlight1\cf0\b0 \par
+        \highlight17\cf16 void\highlight1\cf0  \highlight15\cf14 setContID\highlight13\cf12\b (\highlight17\cf16\b0 int\highlight13\cf12\b );\highlight1\cf0\b0 \par
+        \highlight17\cf16 void\highlight1\cf0  \highlight15\cf14 setColor\highlight13\cf12\b (\highlight17\cf16\b0 bool\highlight1\cf0  \highlight15\cf14 i\highlight13\cf12\b )\highlight1\cf0\b0    \highlight13\cf12\b \{\highlight1\cf0\b0  \highlight15\cf14 _isWhite\highlight1\cf0  \highlight13\cf12\b =\highlight1\cf0\b0  \highlight15\cf14 i\highlight13\cf12\b ;\highlight1\cf0\b0    \highlight13\cf12\b \};\highlight1\cf0\b0 \par
+        \highlight17\cf16 void\highlight1\cf0  \highlight15\cf14 setVisible\highlight13\cf12\b (\highlight17\cf16\b0 bool\highlight1\cf0  \highlight15\cf14 i\highlight13\cf12\b )\highlight1\cf0\b0  \highlight13\cf12\b \{\highlight1\cf0\b0  \highlight15\cf14 _isVisible\highlight1\cf0  \highlight13\cf12\b =\highlight1\cf0\b0  \highlight15\cf14 i\highlight13\cf12\b ;\highlight1\cf0\b0  \highlight13\cf12\b \};\highlight1\cf0\b0 \par
+\par
+        \highlight17\cf16 const\highlight1\cf0  \highlight17\cf16 int\highlight1\cf0   \highlight15\cf14 getPosX\highlight13\cf12\b ()\highlight1\cf0\b0     \highlight17\cf16 const\highlight1\cf0  \highlight13\cf12\b \{\highlight1\cf0\b0  \highlight7\cf6\b return\highlight1\cf0\b0  \highlight15\cf14 _posX\highlight13\cf12\b ;\highlight1\cf0\b0       \highlight13\cf12\b \};\highlight1\cf0\b0 \par
+        \highlight17\cf16 const\highlight1\cf0  \highlight17\cf16 int\highlight1\cf0   \highlight15\cf14 getPosY\highlight13\cf12\b ()\highlight1\cf0\b0     \highlight17\cf16 const\highlight1\cf0  \highlight13\cf12\b \{\highlight1\cf0\b0  \highlight7\cf6\b return\highlight1\cf0\b0  \highlight15\cf14 _posY\highlight13\cf12\b ;\highlight1\cf0\b0       \highlight13\cf12\b \};\highlight1\cf0\b0 \par
+        \highlight17\cf16 const\highlight1\cf0  \highlight17\cf16 int\highlight1\cf0   \highlight15\cf14 getCoordX\highlight13\cf12\b ()\highlight1\cf0\b0   \highlight17\cf16 const\highlight1\cf0  \highlight13\cf12\b \{\highlight1\cf0\b0  \highlight7\cf6\b return\highlight1\cf0\b0  \highlight15\cf14 _coordX\highlight13\cf12\b ;\highlight1\cf0\b0     \highlight13\cf12\b \};\highlight1\cf0\b0 \par
+        \highlight17\cf16 const\highlight1\cf0  \highlight17\cf16 int\highlight1\cf0   \highlight15\cf14 getCoordY\highlight13\cf12\b ()\highlight1\cf0\b0   \highlight17\cf16 const\highlight1\cf0  \highlight13\cf12\b \{\highlight1\cf0\b0  \highlight7\cf6\b return\highlight1\cf0\b0  \highlight15\cf14 _coordY\highlight13\cf12\b ;\highlight1\cf0\b0     \highlight13\cf12\b \};\highlight1\cf0\b0 \par
+        \highlight17\cf16 const\highlight1\cf0  \highlight17\cf16 int\highlight1\cf0   \highlight15\cf14 getContID\highlight13\cf12\b ()\highlight1\cf0\b0   \highlight17\cf16 const\highlight1\cf0  \highlight13\cf12\b \{\highlight1\cf0\b0  \highlight7\cf6\b return\highlight1\cf0\b0  \highlight15\cf14 _contID\highlight13\cf12\b ;\highlight1\cf0\b0     \highlight13\cf12\b \};\highlight1\cf0\b0 \par
+        \highlight17\cf16 const\highlight1\cf0  \highlight17\cf16 bool\highlight1\cf0  \highlight15\cf14 getHasID\highlight13\cf12\b ()\highlight1\cf0\b0    \highlight17\cf16 const\highlight1\cf0  \highlight13\cf12\b \{\highlight1\cf0\b0  \highlight7\cf6\b return\highlight1\cf0\b0  \highlight15\cf14 _hasID\highlight13\cf12\b ;\highlight1\cf0\b0      \highlight13\cf12\b \};\highlight1\cf0\b0 \par
+        \highlight17\cf16 const\highlight1\cf0  \highlight17\cf16 bool\highlight1\cf0  \highlight15\cf14 getColor\highlight13\cf12\b ()\highlight1\cf0\b0    \highlight17\cf16 const\highlight1\cf0  \highlight13\cf12\b \{\highlight1\cf0\b0  \highlight7\cf6\b return\highlight1\cf0\b0  \highlight15\cf14 _isWhite\highlight13\cf12\b ;\highlight1\cf0\b0    \highlight13\cf12\b \};\highlight1\cf0\b0 \par
+        \highlight17\cf16 const\highlight1\cf0  \highlight17\cf16 bool\highlight1\cf0  \highlight15\cf14 getVisible\highlight13\cf12\b ()\highlight1\cf0\b0  \highlight17\cf16 const\highlight1\cf0  \highlight13\cf12\b \{\highlight1\cf0\b0  \highlight7\cf6\b return\highlight1\cf0\b0  \highlight15\cf14 _isVisible\highlight13\cf12\b ;\highlight1\cf0\b0  \highlight13\cf12\b \};\highlight1\cf0\b0 \par
+\par
+        \highlight17\cf16 virtual\highlight1\cf0  \highlight13\cf12\b ~\highlight15\cf14\b0 square\highlight13\cf12\b ();\highlight1\cf0\b0 \par
+    \highlight17\cf16 protected\highlight13\cf12\b :\highlight1\cf0\b0 \par
+        \highlight17\cf16 int\highlight1\cf0   \highlight15\cf14 _posX\highlight13\cf12\b ,\highlight1\cf0\b0  \highlight15\cf14 _posY\highlight13\cf12\b ,\highlight1\cf0\b0  \highlight15\cf14 _coordX\highlight13\cf12\b ,\highlight1\cf0\b0  \highlight15\cf14 _coordY\highlight13\cf12\b ;\highlight1\cf0\b0 \par
+        \highlight17\cf16 bool\highlight1\cf0  \highlight15\cf14 _isWhite\highlight13\cf12\b ,\highlight1\cf0\b0  \highlight15\cf14 _isVisible\highlight13\cf12\b ;\highlight1\cf0\b0 \par
+\par
+        \highlight17\cf16 const\highlight1\cf0  \highlight17\cf16 int\highlight1\cf0  \highlight15\cf14 _calcPos\highlight13\cf12\b (\highlight17\cf16\b0 int\highlight1\cf0  \highlight15\cf14 i\highlight13\cf12\b )\highlight1\cf0\b0  \highlight17\cf16 const\highlight1\cf0  \highlight13\cf12\b \{\highlight1\cf0\b0  \highlight7\cf6\b return\highlight1\cf0\b0  \highlight13\cf12\b (\highlight15\cf14\b0 i\highlight1\cf0  \highlight13\cf12\b *\highlight1\cf0\b0  \highlight5\cf4 64\highlight13\cf12\b )\highlight1\cf0\b0  \highlight13\cf12\b +\highlight1\cf0\b0  \highlight15\cf14 BOARD_EDGE\highlight13\cf12\b ;\highlight1\cf0\b0  \highlight13\cf12\b \};\highlight1\cf0\b0   \highlight3\cf2 // Calcuation of position based on the grid position. Also used to calculate board size.\par
+\highlight1\cf0     \highlight17\cf16 private\highlight13\cf12\b :\highlight1\cf0\b0 \par
+        \highlight17\cf16 int\highlight1\cf0   \highlight15\cf14 _contID\highlight13\cf12\b ;\highlight1\cf0\b0 \par
+        \highlight17\cf16 bool\highlight1\cf0  \highlight15\cf14 _hasID\highlight13\cf12\b ;\highlight1\cf0\b0 \par
+\highlight13\cf12\b \};\highlight1\cf0\b0 \par
+\par
+\highlight15\cf14 square\highlight13\cf12\b ::\highlight15\cf14\b0 square\highlight13\cf12\b ()\highlight1\cf0\b0 \par
+\highlight13\cf12\b \{\highlight1\cf0\b0 \par
+    \highlight3\cf2 //ctor\par
+\highlight13\cf12\b \}\highlight1\cf0\b0 \par
+\par
+\highlight3\cf2 //__________________Draw bitmap without transparency_____________________\par
+\highlight17\cf16 void\highlight1\cf0  \highlight15\cf14 square\highlight13\cf12\b ::\highlight15\cf14\b0 drawBitmap\highlight13\cf12\b (\highlight15\cf14\b0 HDC\highlight1\cf0  \highlight13\cf12\b &\highlight1\cf0\b0  \highlight15\cf14 memHdc\highlight13\cf12\b ,\highlight1\cf0\b0  \highlight15\cf14 HDC\highlight1\cf0  \highlight13\cf12\b &\highlight1\cf0\b0  \highlight15\cf14 bmpHdc\highlight13\cf12\b ,\highlight1\cf0\b0  \highlight15\cf14 HBITMAP\highlight1\cf0  \highlight13\cf12\b &\highlight1\cf0\b0  \highlight15\cf14 hBitmap\highlight13\cf12\b )\highlight1\cf0\b0  \highlight17\cf16 const\highlight13\cf12\b \{\highlight1\cf0\b0 \par
+    \highlight15\cf14 BITMAP\highlight1\cf0  \highlight15\cf14 bm\highlight13\cf12\b ;\highlight1\cf0\b0 \par
+    \highlight15\cf14 SelectObject\highlight13\cf12\b (\highlight15\cf14\b0 bmpHdc\highlight13\cf12\b ,\highlight1\cf0\b0  \highlight15\cf14 hBitmap\highlight13\cf12\b );\highlight1\cf0\b0 \par
+    \highlight15\cf14 GetObject\highlight13\cf12\b (\highlight15\cf14\b0 hBitmap\highlight13\cf12\b ,\highlight1\cf0\b0  \highlight7\cf6\b sizeof\highlight13\cf12 (\highlight15\cf14\b0 bm\highlight13\cf12\b ),\highlight1\cf0\b0  \highlight13\cf12\b &\highlight15\cf14\b0 bm\highlight13\cf12\b );\highlight1\cf0\b0 \par
+    \highlight15\cf14 BitBlt\highlight13\cf12\b (\highlight15\cf14\b0 memHdc\highlight13\cf12\b ,\highlight1\cf0\b0  \highlight15\cf14 _coordX\highlight13\cf12\b ,\highlight1\cf0\b0  \highlight15\cf14 _coordY\highlight13\cf12\b ,\highlight1\cf0\b0  \highlight15\cf14 bm\highlight13\cf12\b .\highlight15\cf14\b0 bmWidth\highlight13\cf12\b ,\highlight1\cf0\b0  \highlight15\cf14 bm\highlight13\cf12\b .\highlight15\cf14\b0 bmHeight\highlight13\cf12\b ,\highlight1\cf0\b0  \highlight15\cf14 bmpHdc\highlight13\cf12\b ,\highlight1\cf0\b0  \highlight5\cf4 0\highlight13\cf12\b ,\highlight1\cf0\b0  \highlight5\cf4 0\highlight13\cf12\b ,\highlight1\cf0\b0  \highlight15\cf14 SRCCOPY\highlight13\cf12\b );\highlight1\cf0\b0 \par
+\highlight13\cf12\b \}\highlight1\cf0\b0 \par
+\par
+\highlight3\cf2 //__________________Draw bitmap with transparency_____________________\par
+\highlight17\cf16 void\highlight1\cf0  \highlight15\cf14 square\highlight13\cf12\b ::\highlight15\cf14\b0 drawBitmap\highlight13\cf12\b (\highlight15\cf14\b0 HDC\highlight1\cf0  \highlight13\cf12\b &\highlight1\cf0\b0  \highlight15\cf14 memHdc\highlight13\cf12\b ,\highlight1\cf0\b0  \highlight15\cf14 HDC\highlight1\cf0  \highlight13\cf12\b &\highlight1\cf0\b0  \highlight15\cf14 bmpHdc\highlight13\cf12\b ,\highlight1\cf0\b0  \highlight15\cf14 HBITMAP\highlight1\cf0  \highlight13\cf12\b &\highlight1\cf0\b0  \highlight15\cf14 hBitmap\highlight13\cf12\b ,\highlight1\cf0\b0  \highlight15\cf14 HBITMAP\highlight1\cf0  \highlight13\cf12\b &\highlight1\cf0\b0  \highlight15\cf14 hMask\highlight13\cf12\b )\highlight1\cf0\b0  \highlight17\cf16 const\highlight13\cf12\b \{\highlight1\cf0\b0 \par
+    \highlight15\cf14 BITMAP\highlight1\cf0  \highlight15\cf14 bm\highlight13\cf12\b ;\highlight1\cf0\b0 \par
+    \highlight15\cf14 SelectObject\highlight13\cf12\b (\highlight15\cf14\b0 bmpHdc\highlight13\cf12\b ,\highlight1\cf0\b0  \highlight15\cf14 hMask\highlight13\cf12\b );\highlight1\cf0\b0 \par
+    \highlight15\cf14 GetObject\highlight13\cf12\b (\highlight15\cf14\b0 hBitmap\highlight13\cf12\b ,\highlight1\cf0\b0  \highlight7\cf6\b sizeof\highlight13\cf12 (\highlight15\cf14\b0 bm\highlight13\cf12\b ),\highlight1\cf0\b0  \highlight13\cf12\b &\highlight15\cf14\b0 bm\highlight13\cf12\b );\highlight1\cf0\b0 \par
+    \highlight15\cf14 BitBlt\highlight13\cf12\b (\highlight15\cf14\b0 memHdc\highlight13\cf12\b ,\highlight1\cf0\b0  \highlight15\cf14 _coordX\highlight13\cf12\b ,\highlight1\cf0\b0  \highlight15\cf14 _coordY\highlight13\cf12\b ,\highlight1\cf0\b0  \highlight15\cf14 bm\highlight13\cf12\b .\highlight15\cf14\b0 bmWidth\highlight13\cf12\b ,\highlight1\cf0\b0  \highlight15\cf14 bm\highlight13\cf12\b .\highlight15\cf14\b0 bmHeight\highlight13\cf12\b ,\highlight1\cf0\b0  \highlight15\cf14 bmpHdc\highlight13\cf12\b ,\highlight1\cf0\b0  \highlight5\cf4 0\highlight13\cf12\b ,\highlight1\cf0\b0  \highlight5\cf4 0\highlight13\cf12\b ,\highlight1\cf0\b0  \highlight15\cf14 SRCAND\highlight13\cf12\b );\highlight1\cf0\b0 \par
+    \highlight15\cf14 SelectObject\highlight13\cf12\b (\highlight15\cf14\b0 bmpHdc\highlight13\cf12\b ,\highlight1\cf0\b0  \highlight15\cf14 hBitmap\highlight13\cf12\b );\highlight1\cf0\b0 \par
+    \highlight15\cf14 BitBlt\highlight13\cf12\b (\highlight15\cf14\b0 memHdc\highlight13\cf12\b ,\highlight1\cf0\b0  \highlight15\cf14 _coordX\highlight13\cf12\b ,\highlight1\cf0\b0  \highlight15\cf14 _coordY\highlight13\cf12\b ,\highlight1\cf0\b0  \highlight15\cf14 bm\highlight13\cf12\b .\highlight15\cf14\b0 bmWidth\highlight13\cf12\b ,\highlight1\cf0\b0  \highlight15\cf14 bm\highlight13\cf12\b .\highlight15\cf14\b0 bmHeight\highlight13\cf12\b ,\highlight1\cf0\b0  \highlight15\cf14 bmpHdc\highlight13\cf12\b ,\highlight1\cf0\b0  \highlight5\cf4 0\highlight13\cf12\b ,\highlight1\cf0\b0  \highlight5\cf4 0\highlight13\cf12\b ,\highlight1\cf0\b0  \highlight15\cf14 SRCPAINT\highlight13\cf12\b );\highlight1\cf0\b0 \par
+\highlight13\cf12\b \}\highlight1\cf0\b0 \par
+\par
+\highlight3\cf2 //__________________Check if cursor is within chessboard_____________________\par
+\highlight17\cf16 const\highlight1\cf0  \highlight17\cf16 bool\highlight1\cf0  \highlight15\cf14 square\highlight13\cf12\b ::\highlight15\cf14\b0 cursorWithinBoard\highlight13\cf12\b (\highlight15\cf14\b0 POINT\highlight1\cf0  \highlight13\cf12\b &\highlight1\cf0\b0  \highlight15\cf14 p\highlight13\cf12\b )\highlight1\cf0\b0  \highlight17\cf16 const\highlight13\cf12\b \{\highlight1\cf0\b0 \par
+    \highlight7\cf6\b if\highlight1\cf0\b0  \highlight13\cf12\b ((\highlight15\cf14\b0 p\highlight13\cf12\b .\highlight15\cf14\b0 x\highlight1\cf0  \highlight13\cf12\b >=\highlight1\cf0\b0  \highlight15\cf14 BOARD_EDGE\highlight1\cf0  \highlight13\cf12\b &&\highlight1\cf0\b0  \highlight15\cf14 p\highlight13\cf12\b .\highlight15\cf14\b0 x\highlight1\cf0  \highlight13\cf12\b <=\highlight1\cf0\b0  \highlight7\cf6\b this\highlight13\cf12 ->\highlight15\cf14\b0 _calcPos\highlight13\cf12\b (\highlight15\cf14\b0 BOARD_WIDTH\highlight13\cf12\b ))\highlight1\cf0\b0  \highlight13\cf12\b &&\highlight1\cf0\b0  \highlight13\cf12\b (\highlight15\cf14\b0 p\highlight13\cf12\b .\highlight15\cf14\b0 y\highlight1\cf0  \highlight13\cf12\b >=\highlight1\cf0\b0  \highlight15\cf14 BOARD_EDGE\highlight1\cf0  \highlight13\cf12\b &&\highlight1\cf0\b0  \highlight15\cf14 p\highlight13\cf12\b .\highlight15\cf14\b0 y\highlight1\cf0  \highlight13\cf12\b <=\highlight1\cf0\b0  \highlight7\cf6\b this\highlight13\cf12 ->\highlight15\cf14\b0 _calcPos\highlight13\cf12\b (\highlight15\cf14\b0 BOARD_HEIGHT\highlight13\cf12\b )))\{\highlight1\cf0\b0 \par
+        \highlight7\cf6\b return\highlight1\cf0\b0  \highlight7\cf6\b true\highlight13\cf12 ;\highlight1\cf0\b0 \par
+    \highlight13\cf12\b \}\highlight1\cf0\b0  \highlight7\cf6\b else\highlight1\cf0\b0  \highlight13\cf12\b \{\highlight1\cf0\b0 \par
+        \highlight7\cf6\b return\highlight1\cf0\b0  \highlight7\cf6\b false\highlight13\cf12 ;\highlight1\cf0\b0 \par
+    \highlight13\cf12\b \}\highlight1\cf0\b0 \par
+\highlight13\cf12\b \}\highlight1\cf0\b0 \par
+\par
+\highlight3\cf2 //__________________Check if cursor is within square_____________________\par
+\highlight17\cf16 const\highlight1\cf0  \highlight17\cf16 bool\highlight1\cf0  \highlight15\cf14 square\highlight13\cf12\b ::\highlight15\cf14\b0 cursorWithinSquare\highlight13\cf12\b (\highlight15\cf14\b0 POINT\highlight1\cf0  \highlight13\cf12\b &\highlight1\cf0\b0  \highlight15\cf14 p\highlight13\cf12\b )\highlight1\cf0\b0  \highlight17\cf16 const\highlight13\cf12\b \{\highlight1\cf0\b0 \par
+    \highlight7\cf6\b if\highlight1\cf0\b0  \highlight13\cf12\b ((\highlight15\cf14\b0 p\highlight13\cf12\b .\highlight15\cf14\b0 x\highlight1\cf0  \highlight13\cf12\b >\highlight1\cf0\b0  \highlight15\cf14 _coordX\highlight1\cf0  \highlight13\cf12\b &&\highlight1\cf0\b0  \highlight15\cf14 p\highlight13\cf12\b .\highlight15\cf14\b0 x\highlight1\cf0  \highlight13\cf12\b <\highlight1\cf0\b0  \highlight13\cf12\b (\highlight15\cf14\b0 _coordX\highlight1\cf0  \highlight13\cf12\b +\highlight1\cf0\b0  \highlight5\cf4 64\highlight13\cf12\b ))\highlight1\cf0\b0  \highlight13\cf12\b &&\highlight1\cf0\b0  \highlight13\cf12\b (\highlight15\cf14\b0 p\highlight13\cf12\b .\highlight15\cf14\b0 y\highlight1\cf0  \highlight13\cf12\b >\highlight1\cf0\b0  \highlight15\cf14 _coordY\highlight1\cf0  \highlight13\cf12\b &&\highlight1\cf0\b0  \highlight15\cf14 p\highlight13\cf12\b .\highlight15\cf14\b0 y\highlight1\cf0  \highlight13\cf12\b <\highlight1\cf0\b0  \highlight13\cf12\b (\highlight15\cf14\b0 _coordY\highlight1\cf0  \highlight13\cf12\b +\highlight1\cf0\b0  \highlight5\cf4 64\highlight13\cf12\b )))\{\highlight1\cf0\b0 \par
+        \highlight7\cf6\b return\highlight1\cf0\b0  \highlight7\cf6\b true\highlight13\cf12 ;\highlight1\cf0\b0 \par
+    \highlight13\cf12\b \}\highlight1\cf0\b0  \highlight7\cf6\b else\highlight1\cf0\b0  \highlight13\cf12\b \{\highlight1\cf0\b0 \par
+        \highlight7\cf6\b return\highlight1\cf0\b0  \highlight7\cf6\b false\highlight13\cf12 ;\highlight1\cf0\b0 \par
+    \highlight13\cf12\b \}\highlight1\cf0\b0 \par
+\highlight13\cf12\b \}\highlight1\cf0\b0 \par
+\par
+\highlight3\cf2 //__________________Set position of square_____________________\par
+\highlight17\cf16 void\highlight1\cf0  \highlight15\cf14 square\highlight13\cf12\b ::\highlight15\cf14\b0 setPos\highlight13\cf12\b (\highlight17\cf16\b0 int\highlight1\cf0  \highlight15\cf14 x\highlight13\cf12\b ,\highlight1\cf0\b0  \highlight17\cf16 int\highlight1\cf0  \highlight15\cf14 y\highlight13\cf12\b )\{\highlight1\cf0\b0 \par
+    \highlight15\cf14 _posX\highlight1\cf0  \highlight13\cf12\b =\highlight1\cf0\b0  \highlight15\cf14 x\highlight13\cf12\b ;\highlight1\cf0\b0 \par
+    \highlight15\cf14 _coordX\highlight1\cf0  \highlight13\cf12\b =\highlight1\cf0\b0  \highlight7\cf6\b this\highlight13\cf12 ->\highlight15\cf14\b0 _calcPos\highlight13\cf12\b (\highlight15\cf14\b0 x\highlight13\cf12\b );\highlight1\cf0\b0 \par
+\par
+    \highlight15\cf14 _posY\highlight1\cf0  \highlight13\cf12\b =\highlight1\cf0\b0  \highlight15\cf14 y\highlight13\cf12\b ;\highlight1\cf0\b0 \par
+    \highlight15\cf14 _coordY\highlight1\cf0  \highlight13\cf12\b =\highlight1\cf0\b0  \highlight7\cf6\b this\highlight13\cf12 ->\highlight15\cf14\b0 _calcPos\highlight13\cf12\b (\highlight15\cf14\b0 y\highlight13\cf12\b );\highlight1\cf0\b0 \par
+\highlight13\cf12\b \}\highlight1\cf0\b0 \par
+\par
+\highlight3\cf2 //__________________Set contained ID of square_____________________\par
+\highlight17\cf16 void\highlight1\cf0  \highlight15\cf14 square\highlight13\cf12\b ::\highlight15\cf14\b0 setContID\highlight13\cf12\b (\highlight17\cf16\b0 int\highlight1\cf0  \highlight15\cf14 i\highlight13\cf12\b )\{\highlight1\cf0\b0 \par
+    \highlight7\cf6\b if\highlight1\cf0\b0  \highlight13\cf12\b (\highlight15\cf14\b0 i\highlight13\cf12\b )\{\highlight1\cf0\b0 \par
+        \highlight15\cf14 _contID\highlight1\cf0  \highlight13\cf12\b =\highlight1\cf0\b0  \highlight15\cf14 i\highlight13\cf12\b ;\highlight1\cf0\b0 \par
+        \highlight15\cf14 _hasID\highlight1\cf0  \highlight13\cf12\b =\highlight1\cf0\b0  \highlight7\cf6\b true\highlight13\cf12 ;\highlight1\cf0\b0 \par
+    \highlight13\cf12\b \}\highlight1\cf0\b0  \highlight7\cf6\b else\highlight1\cf0\b0  \highlight13\cf12\b \{\highlight1\cf0\b0 \par
+        \highlight15\cf14 _hasID\highlight1\cf0  \highlight13\cf12\b =\highlight1\cf0\b0  \highlight7\cf6\b false\highlight13\cf12 ;\highlight1\cf0\b0 \par
+    \highlight13\cf12\b \}\highlight1\cf0\b0 \par
+\highlight13\cf12\b \}\highlight1\cf0\b0 \par
+\par
+\highlight15\cf14 square\highlight13\cf12\b ::~\highlight15\cf14\b0 square\highlight13\cf12\b ()\highlight1\cf0\b0 \par
+\highlight13\cf12\b \{\highlight1\cf0\b0 \par
+    \highlight15\cf14 puts\highlight13\cf12\b (\highlight9\cf8\b0 "Destructor call for square Object\\n"\highlight13\cf12\b );\highlight1\cf0\b0  \highlight3\cf2 //dtor\par
+\highlight13\cf12\b \}\highlight1\cf0\b0 \par
+}
